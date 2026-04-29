@@ -1,13 +1,313 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-  <title>Topshop Project</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TOPSHOP — Votre Compagnon Shopping</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <h1>Topshop</h1>
-  <p>Benvenuti nel nostro progetto</p>
+  <!-- ═══════════════════════════════════════════
+       ÉCRAN 0 — ACCUEIL
+  ═══════════════════════════════════════════ -->
+  <div class="screen active" id="screen-home">
+    <header class="app-header">
+      <div class="logo">TOPSHOP</div>
+      <p class="tagline">Votre Compagnon de Sécurité Shopping</p>
+    </header>
 
+    <button class="sos-banner" onclick="showScreen('screen-sos')">
+      <span class="sos-icon">⚠</span>
+      <div>
+        <strong>SOS</strong>
+        <span>Aide d'Urgence</span>
+      </div>
+      <span class="sos-arrow">›</span>
+    </button>
+
+    <section class="features-grid">
+      <h2 class="section-title">Fonctionnalités Principales</h2>
+
+      <div class="feature-card" onclick="showScreen('screen-parking')">
+        <div class="feature-icon parking-icon">🗺</div>
+        <div class="feature-text">
+          <strong>Carte de Sécurité du Parking</strong>
+          <span>Trouvez un parking sûr et enregistrez l'emplacement</span>
+        </div>
+        <span class="card-arrow">›</span>
+      </div>
+
+      <div class="feature-card" onclick="showScreen('screen-magasin')">
+        <div class="feature-icon nav-icon">🧭</div>
+        <div class="feature-text">
+          <strong>Navigation en Magasin</strong>
+          <span>Naviguez efficacement dans les rayons</span>
+        </div>
+        <span class="card-arrow">›</span>
+      </div>
+
+      <div class="feature-card" onclick="showScreen('screen-liste')">
+        <div class="feature-icon list-icon">🛒</div>
+        <div class="feature-text">
+          <strong>Liste de Courses</strong>
+          <span>Organisez votre trajet de courses</span>
+        </div>
+        <span class="card-arrow">›</span>
+      </div>
+    </section>
+
+    <div class="home-footer">
+      <p>Intermarché · Votre magasin proche de vous</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       ÉCRAN 1 — SOS
+  ═══════════════════════════════════════════ -->
+  <div class="screen" id="screen-sos">
+    <header class="screen-header sos-header">
+      <button class="back-btn" onclick="showScreen('screen-home')">‹ Retour</button>
+      <h1>SOS d'Urgence</h1>
+    </header>
+
+    <div class="sos-screen">
+      <div class="sos-big-btn" id="sosBigBtn">
+        <div class="sos-ring"></div>
+        <div class="sos-ring sos-ring-2"></div>
+        <div class="sos-center">
+          <span class="sos-exclamation">!</span>
+          <span class="sos-label">SOS</span>
+        </div>
+        <svg class="sos-progress" viewBox="0 0 120 120">
+          <circle class="sos-progress-track" cx="60" cy="60" r="54"/>
+          <circle class="sos-progress-fill" id="sosProgressFill" cx="60" cy="60" r="54"/>
+        </svg>
+      </div>
+      <p class="sos-hint">Maintenez appuyé 3 secondes pour activer</p>
+
+      <div id="sos-activated" class="sos-activated hidden">
+        <div class="sos-alert-badge">🚨 SOS ACTIVÉ</div>
+        <p>Les secours ont été alertés.<br>Votre position a été partagée.</p>
+        <button class="btn-cancel" onclick="cancelSOS()">Annuler l'alerte</button>
+      </div>
+
+      <div class="sos-options">
+        <p class="sos-options-title">Que se passe-t-il lorsque vous appuyez sur SOS ?</p>
+        <div class="sos-option">
+          <div class="sos-option-icon blue-dot">🛡</div>
+          <div>
+            <strong>Contacter la sécurité du magasin</strong>
+            <span>Si disponible dans le magasin</span>
+          </div>
+        </div>
+        <div class="sos-option">
+          <div class="sos-option-icon red-dot">📞</div>
+          <div>
+            <strong>Appeler les forces de l'ordre</strong>
+            <span>Si la sécurité du magasin n'est pas disponible</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       ÉCRAN 2 — PARKING
+  ═══════════════════════════════════════════ -->
+  <div class="screen" id="screen-parking">
+    <header class="screen-header blue-header">
+      <button class="back-btn" onclick="showScreen('screen-home')">‹ Retour</button>
+      <h1>Carte de Sécurité du Parking</h1>
+    </header>
+
+    <div class="parking-screen">
+      <div class="parking-map" id="parkingMap">
+        <div class="parking-legend">
+          <span><span class="dot blue"></span> Votre voiture</span>
+          <span><span class="dot yellow"></span> Bien éclairé</span>
+          <span><span class="dot green"></span> Entrée</span>
+          <span><span class="dot red"></span> Zone sombre</span>
+        </div>
+
+        <div class="parking-grid">
+          <!-- Rangée A -->
+          <div class="parking-row">
+            <div class="pspot lit" data-spot="A1">A1</div>
+            <div class="pspot lit" data-spot="A2">A2</div>
+            <div class="pspot dark" data-spot="A3">A3</div>
+            <div class="pspot dark" data-spot="A4">A4</div>
+            <div class="pspot lit" data-spot="A5">A5</div>
+          </div>
+          <!-- Allée -->
+          <div class="parking-aisle">← Allée principale →</div>
+          <!-- Rangée B -->
+          <div class="parking-row">
+            <div class="pspot lit" data-spot="B1">B1</div>
+            <div class="pspot lit" data-spot="B2" id="myCarSpot">B2 🚗</div>
+            <div class="pspot lit" data-spot="B3">B3</div>
+            <div class="pspot dark" data-spot="B4">B4</div>
+            <div class="pspot dark" data-spot="B5">B5</div>
+          </div>
+          <!-- Allée -->
+          <div class="parking-aisle"></div>
+          <!-- Rangée C -->
+          <div class="parking-row">
+            <div class="pspot dark" data-spot="C1">C1</div>
+            <div class="pspot lit" data-spot="C2">C2</div>
+            <div class="pspot lit" data-spot="C3">C3</div>
+            <div class="pspot lit" data-spot="C4">C4</div>
+            <div class="pspot dark" data-spot="C5">C5</div>
+          </div>
+          <!-- Entrée -->
+          <div class="parking-entry">🟢 ENTRÉE / SORTIE</div>
+        </div>
+
+        <div class="parking-alert" id="parkingAlert" style="display:none">
+          ⚠ Zone peu éclairée sélectionnée — Préférez une zone jaune
+        </div>
+      </div>
+
+      <button class="btn-primary" id="saveSpotBtn" onclick="saveSpot()">
+        📍 Enregistrer l'Emplacement Actuel
+      </button>
+
+      <div class="saved-spot-info" id="savedSpotInfo" style="display:none">
+        <span>✅ Place enregistrée : <strong id="savedSpotLabel"></strong></span>
+        <button onclick="clearSpot()">Effacer</button>
+      </div>
+
+      <div class="parking-tips">
+        <p class="tips-title">💡 Conseils de Sécurité</p>
+        <ul>
+          <li>Garez-vous dans des zones bien éclairées</li>
+          <li>Restez conscient de votre environnement</li>
+          <li>Enregistrez l'emplacement pour un retour facile</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       ÉCRAN 3 — NAVIGATION MAGASIN
+  ═══════════════════════════════════════════ -->
+  <div class="screen" id="screen-magasin">
+    <header class="screen-header green-header">
+      <button class="back-btn" onclick="showScreen('screen-home')">‹ Retour</button>
+      <h1>Navigation en Magasin</h1>
+    </header>
+
+    <div class="magasin-screen">
+      <div class="search-bar">
+        <input type="text" id="productSearch" placeholder="Rechercher un produit (ex: lait, pain...)" oninput="searchProduct(this.value)"/>
+        <button onclick="searchProduct(document.getElementById('productSearch').value)">🔍</button>
+      </div>
+
+      <div class="search-result" id="searchResult" style="display:none"></div>
+
+      <div class="store-map">
+        <div class="store-entry-label">🚪 ENTRÉE</div>
+        <div class="store-grid">
+          <div class="rayon" data-rayon="fruits" onclick="highlightRayon('fruits')">
+            <span class="rayon-icon">🍎</span>
+            <span>Fruits &<br>Légumes</span>
+          </div>
+          <div class="rayon" data-rayon="boulangerie" onclick="highlightRayon('boulangerie')">
+            <span class="rayon-icon">🥖</span>
+            <span>Boulangerie</span>
+          </div>
+          <div class="rayon" data-rayon="viande" onclick="highlightRayon('viande')">
+            <span class="rayon-icon">🥩</span>
+            <span>Viande &<br>Poisson</span>
+          </div>
+          <div class="rayon" data-rayon="laitier" onclick="highlightRayon('laitier')">
+            <span class="rayon-icon">🥛</span>
+            <span>Produits<br>Laitiers</span>
+          </div>
+          <div class="rayon" data-rayon="epicerie" onclick="highlightRayon('epicerie')">
+            <span class="rayon-icon">🥫</span>
+            <span>Épicerie</span>
+          </div>
+          <div class="rayon" data-rayon="boissons" onclick="highlightRayon('boissons')">
+            <span class="rayon-icon">🧃</span>
+            <span>Boissons</span>
+          </div>
+          <div class="rayon" data-rayon="surgelee" onclick="highlightRayon('surgelee')">
+            <span class="rayon-icon">🧊</span>
+            <span>Surgelés</span>
+          </div>
+          <div class="rayon" data-rayon="hygiene" onclick="highlightRayon('hygiene')">
+            <span class="rayon-icon">🧴</span>
+            <span>Hygiène &<br>Beauté</span>
+          </div>
+          <div class="rayon caisse" data-rayon="caisse">
+            <span class="rayon-icon">💳</span>
+            <span>Caisses</span>
+          </div>
+        </div>
+        <div class="itineraire-actif" id="itineraireActif" style="display:none">
+          <p>📍 Itinéraire actif :</p>
+          <span id="itineraireText"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       ÉCRAN 4 — LISTE DE COURSES
+  ═══════════════════════════════════════════ -->
+  <div class="screen" id="screen-liste">
+    <header class="screen-header purple-header">
+      <button class="back-btn" onclick="showScreen('screen-home')">‹ Retour</button>
+      <h1>Liste de Courses</h1>
+    </header>
+
+    <div class="liste-screen">
+      <div class="add-item-bar">
+        <input type="text" id="newItem" placeholder="Ajouter un produit..." onkeydown="if(event.key==='Enter') addItem()"/>
+        <button onclick="addItem()">+</button>
+      </div>
+
+      <div class="liste-stats" id="listeStats"></div>
+
+      <ul class="shopping-list" id="shoppingList"></ul>
+
+      <div class="liste-empty" id="listeEmpty">
+        <span>🛒</span>
+        <p>Votre liste est vide.<br>Ajoutez des produits ci-dessus !</p>
+      </div>
+
+      <div class="liste-actions" id="listeActions" style="display:none">
+        <button class="btn-secondary" onclick="clearChecked()">Supprimer les cochés</button>
+        <button class="btn-secondary danger" onclick="clearAll()">Tout effacer</button>
+      </div>
+
+      <div class="recettes-section">
+        <p class="recettes-title">💡 Suggestions de recettes</p>
+        <div class="recettes-grid">
+          <div class="recette-card" onclick="addRecipe('carbonara')">
+            <span>🍝</span>
+            <span>Carbonara</span>
+          </div>
+          <div class="recette-card" onclick="addRecipe('salade')">
+            <span>🥗</span>
+            <span>Salade César</span>
+          </div>
+          <div class="recette-card" onclick="addRecipe('omelette')">
+            <span>🍳</span>
+            <span>Omelette</span>
+          </div>
+          <div class="recette-card" onclick="addRecipe('smoothie')">
+            <span>🥤</span>
+            <span>Smoothie</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
