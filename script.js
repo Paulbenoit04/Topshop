@@ -16,7 +16,7 @@ function showScreen(id) {
 // ═══════════════════════════════════════════
 // ÉCRAN SOS
 // ═══════════════════════════════════════════
-const SOS_DURATION = 3000; // ms pour activer
+const SOS_DURATION = 2000; // ms pour activer
 let sosTimer = null;
 let sosStart = null;
 let sosAnimFrame = null;
