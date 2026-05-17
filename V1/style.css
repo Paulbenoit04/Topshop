@@ -41,10 +41,9 @@ body {
   min-height: 700px;
   max-height: 850px;
   background: var(--fond);
-  border-radius: 36px;
   overflow-y: auto;
   overflow-x: hidden;
-  box-shadow: 0 24px 64px rgba(0,0,0,0.25), 0 0 0 8px #1a1a1a;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.18);
   position: relative;
   flex-direction: column;
   scrollbar-width: none;
@@ -373,14 +372,19 @@ body {
 .parking-tips li { font-size: 12px; color: var(--gris); margin-bottom: 4px; }
 
 /* ─── ÉCRAN MAGASIN ─── */
-.magasin-screen { padding: 14px; display: flex; flex-direction: column; gap: 10px; }
-.search-bar { display: flex; gap: 8px; }
+.magasin-screen { padding: 14px; display: flex; flex-direction: column; gap: 12px; }
+.search-bar {
+  display: flex; gap: 8px;
+}
 .search-bar input {
-  flex: 1; padding: 12px 16px;
+  flex: 1;
+  padding: 12px 16px;
   border: 2px solid var(--gris-light);
   border-radius: var(--radius-sm);
-  font-family: 'DM Sans', sans-serif; font-size: 14px;
-  background: var(--blanc); outline: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  background: var(--blanc);
+  outline: none;
   transition: border-color 0.2s;
 }
 .search-bar input:focus { border-color: #1B7A4A; }
@@ -389,32 +393,60 @@ body {
   border: none; border-radius: var(--radius-sm);
   padding: 0 16px; font-size: 18px; cursor: pointer;
 }
-.map-hint { font-size: 11px; color: var(--gris); text-align: center; font-style: italic; }
-.map-viewport {
-  width: 100%; aspect-ratio: 620 / 780;
-  overflow: hidden; border-radius: var(--radius);
-  background: var(--blanc); box-shadow: var(--shadow);
-  position: relative; touch-action: none; cursor: grab;
-}
-.map-viewport:active { cursor: grabbing; }
-.map-inner { width: 100%; height: 100%; transform-origin: 0 0; will-change: transform; }
-.map-rayon { cursor: pointer; }
-.map-rayon rect { transition: filter 0.15s; }
-.map-rayon:hover rect { filter: brightness(0.88); }
-.map-rayon.highlighted rect { filter: brightness(0.75) saturate(1.5); }
-.search-result-detail {
-  background: #E8F5E9; border-left: 3px solid #1B7A4A;
-  border-radius: var(--radius-sm); padding: 10px 14px;
-  display: flex; align-items: center; gap: 10px; font-size: 13px;
-}
-.search-result-detail span:first-child { font-size: 22px; }
-.search-result-detail strong { display: block; color: #1B5E20; font-size: 13px; }
-.search-result .sub { font-size: 11px; color: var(--gris); }
+
 .search-result {
-  background: #FFF3E0; border-left: 3px solid #FF9800;
-  border-radius: var(--radius-sm); padding: 10px 14px;
-  font-size: 13px; color: #E65100; font-weight: 500;
+  background: #E8F5E9;
+  border-left: 3px solid #1B7A4A;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 13px; color: #1B5E20;
+  font-weight: 500;
 }
+
+.store-map {
+  background: var(--blanc);
+  border-radius: var(--radius);
+  padding: 14px;
+  box-shadow: var(--shadow);
+}
+.store-entry-label {
+  text-align: center;
+  font-size: 12px; font-weight: 600;
+  color: #1B7A4A; margin-bottom: 10px;
+  background: #E8F5E9;
+  padding: 4px; border-radius: 6px;
+}
+.store-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.rayon {
+  background: var(--fond);
+  border-radius: 10px;
+  padding: 10px 6px;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 4px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  border: 2px solid transparent;
+  text-align: center;
+}
+.rayon:hover { background: #E8F5E9; transform: scale(1.03); }
+.rayon.highlighted { background: #C8E6C9; border-color: #1B7A4A; }
+.rayon-icon { font-size: 22px; }
+.rayon span:last-child { font-size: 10px; font-weight: 600; color: var(--noir); line-height: 1.3; }
+.rayon.caisse { background: #E3F2FD; }
+
+.itineraire-actif {
+  margin-top: 12px;
+  background: #E8F5E9;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 12px;
+}
+.itineraire-actif p { font-weight: 600; color: #1B7A4A; margin-bottom: 4px; }
+.itineraire-actif span { color: var(--gris); }
 
 /* ─── ÉCRAN LISTE ─── */
 .liste-screen { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
