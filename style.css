@@ -31,19 +31,20 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  padding: 24px 0;
+  padding: 0;
 }
 
 /* ─── CONTENEUR TÉLÉPHONE ─── */
 .screen {
   display: none;
-  width: 390px;
-  min-height: 700px;
-  max-height: 850px;
+  width: 100%;
+  min-height: 100vh;
+  max-height: none;
+  border-radius: 0;
+  box-shadow: none;
   background: var(--fond);
   overflow-y: auto;
   overflow-x: hidden;
-  box-shadow: 0 24px 64px rgba(0,0,0,0.18);
   position: relative;
   flex-direction: column;
   scrollbar-width: none;
