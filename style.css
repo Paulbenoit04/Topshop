@@ -41,10 +41,9 @@ body {
   min-height: 700px;
   max-height: 850px;
   background: var(--fond);
-  border-radius: 36px;
   overflow-y: auto;
   overflow-x: hidden;
-  box-shadow: 0 24px 64px rgba(0,0,0,0.25), 0 0 0 8px #1a1a1a;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.18);
   position: relative;
   flex-direction: column;
   scrollbar-width: none;

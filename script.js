@@ -16,7 +16,7 @@ function showScreen(id) {
 // ═══════════════════════════════════════════
 // ÉCRAN SOS
 // ═══════════════════════════════════════════
-const SOS_DURATION = 3000; // ms pour activer
+const SOS_DURATION = 2000; // ms pour activer
 let sosTimer = null;
 let sosStart = null;
 let sosAnimFrame = null;
@@ -151,22 +151,22 @@ loadSavedSpot();
 // cx/cy = centre approximatif du rayon dans le viewBox 620×780
 const produits = {
   // Fruits
-  'pomme':   { rayon: 'fruits', label: 'Fruits', emoji: '🍎', cx: 495, cy: 331 },
-  'pommes':  { rayon: 'fruits', label: 'Fruits', emoji: '🍎', cx: 495, cy: 331 },
-  'banane':  { rayon: 'fruits', label: 'Fruits', emoji: '🍌', cx: 495, cy: 331 },
-  'bananes': { rayon: 'fruits', label: 'Fruits', emoji: '🍌', cx: 495, cy: 331 },
-  'citron':  { rayon: 'fruits', label: 'Fruits', emoji: '🍋', cx: 495, cy: 331 },
-  'raisin':  { rayon: 'fruits', label: 'Fruits', emoji: '🍇', cx: 495, cy: 331 },
+  'pomme':   { rayon: 'fruits', label: 'Fruits', emoji: '🍎', cx: 395, cy: 331 },
+  'pommes':  { rayon: 'fruits', label: 'Fruits', emoji: '🍎', cx: 395, cy: 331 },
+  'banane':  { rayon: 'fruits', label: 'Fruits', emoji: '🍌', cx: 395, cy: 331 },
+  'bananes': { rayon: 'fruits', label: 'Fruits', emoji: '🍌', cx: 395, cy: 331 },
+  'citron':  { rayon: 'fruits', label: 'Fruits', emoji: '🍋', cx: 395, cy: 331 },
+  'raisin':  { rayon: 'fruits', label: 'Fruits', emoji: '🍇', cx: 395, cy: 331 },
   // Légumes
-  'tomate':   { rayon: 'legumes', label: 'Légumes', emoji: '🍅', cx: 495, cy: 255 },
-  'tomates':  { rayon: 'legumes', label: 'Légumes', emoji: '🍅', cx: 495, cy: 255 },
-  'carotte':  { rayon: 'legumes', label: 'Légumes', emoji: '🥕', cx: 495, cy: 255 },
-  'carottes': { rayon: 'legumes', label: 'Légumes', emoji: '🥕', cx: 495, cy: 255 },
-  'salade':   { rayon: 'legumes', label: 'Légumes', emoji: '🥗', cx: 495, cy: 255 },
-  'oignon':   { rayon: 'legumes', label: 'Légumes', emoji: '🧅', cx: 495, cy: 255 },
-  'oignons':  { rayon: 'legumes', label: 'Légumes', emoji: '🧅', cx: 495, cy: 255 },
-  'ail':      { rayon: 'legumes', label: 'Légumes', emoji: '🧄', cx: 495, cy: 255 },
-  'poireau':  { rayon: 'legumes', label: 'Légumes', emoji: '🥬', cx: 495, cy: 255 },
+  'tomate':   { rayon: 'legumes', label: 'Légumes', emoji: '🍅', cx: 395, cy: 255 },
+  'tomates':  { rayon: 'legumes', label: 'Légumes', emoji: '🍅', cx: 395, cy: 255 },
+  'carotte':  { rayon: 'legumes', label: 'Légumes', emoji: '🥕', cx: 395, cy: 255 },
+  'carottes': { rayon: 'legumes', label: 'Légumes', emoji: '🥕', cx: 395, cy: 255 },
+  'salade':   { rayon: 'legumes', label: 'Légumes', emoji: '🥗', cx: 395, cy: 255 },
+  'oignon':   { rayon: 'legumes', label: 'Légumes', emoji: '🧅', cx: 395, cy: 255 },
+  'oignons':  { rayon: 'legumes', label: 'Légumes', emoji: '🧅', cx: 395, cy: 255 },
+  'ail':      { rayon: 'legumes', label: 'Légumes', emoji: '🧄', cx: 395, cy: 255 },
+  'poireau':  { rayon: 'legumes', label: 'Légumes', emoji: '🥬', cx: 395, cy: 255 },
   // Boulangerie
   'pain':      { rayon: 'boulangerie', label: 'Boulangerie', emoji: '🥖', cx: 569, cy: 621 },
   'baguette':  { rayon: 'boulangerie', label: 'Boulangerie', emoji: '🥖', cx: 569, cy: 621 },
@@ -218,8 +218,8 @@ const produits = {
   'cafe':    { rayon: 'cafe', label: 'Café · Thé', emoji: '☕', cx: 53, cy: 277 },
   'thé':     { rayon: 'cafe', label: 'Café · Thé', emoji: '🍵', cx: 53, cy: 277 },
   // Boissons
-  'eau':     { rayon: 'eaux', label: 'Eaux minérales', emoji: '💧', cx: 3, cy: 470 },
-  'eau minérale': { rayon: 'eaux', label: 'Eaux minérales', emoji: '💧', cx: 3, cy: 470 },
+  'eau':     { rayon: 'eaux', label: 'Eaux minérales', emoji: '💧', cx: 53, cy: 499 },
+  'eau minérale': { rayon: 'eaux', label: 'Eaux minérales', emoji: '💧', cx: 53, cy: 499 },
   'jus':     { rayon: 'boissons', label: 'Sodas · Jus', emoji: '🧃', cx: 53, cy: 499 },
   'coca':    { rayon: 'boissons', label: 'Sodas · Jus', emoji: '🥤', cx: 53, cy: 499 },
   'soda':    { rayon: 'boissons', label: 'Sodas · Jus', emoji: '🥤', cx: 53, cy: 499 },
@@ -252,8 +252,8 @@ const produits = {
   'apero':      { rayon: 'apero', label: 'Chips · Apéro', emoji: '🍿', cx: 53, cy: 421 },
   'apéro':      { rayon: 'apero', label: 'Chips · Apéro', emoji: '🍿', cx: 53, cy: 421 },
   // Bio
-  'bio':        { rayon: 'bio', label: 'Bio Vrac', emoji: '🌿', cx: 460, cy: 188 },
-  'local':      { rayon: 'local', label: 'Produits Locaux · Bio', emoji: '🏡', cx: 495, cy: 575 },
+  'bio':        { rayon: 'bio', label: 'Bio Vrac', emoji: '🌿', cx: 360, cy: 188 },
+  'local':      { rayon: 'local', label: 'Produits Locaux · Bio', emoji: '🏡', cx: 395, cy: 575 },
   // Confiserie
   'bonbon':     { rayon: 'confiserie', label: 'Confiserie · Chocolat', emoji: '🍬', cx: 53, cy: 199 },
   'chocolat':   { rayon: 'confiserie', label: 'Confiserie · Chocolat', emoji: '🍫', cx: 53, cy: 199 },
@@ -277,7 +277,7 @@ function searchProduct(query) {
   // Chercher
   let found = null;
   for (const [key, val] of Object.entries(produits)) {
-    if (q === key || q.includes(key) || key.includes(q)) { found = val; break; }
+    if (q === key || q.replace(/s$/, '') === key) { found = val; break; }
   }
 
   if (found) {

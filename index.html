@@ -86,7 +86,7 @@
           <circle class="sos-progress-fill" id="sosProgressFill" cx="60" cy="60" r="54"/>
         </svg>
       </div>
-      <p class="sos-hint">Maintenez appuyé 3 secondes pour activer</p>
+      <p class="sos-hint">Maintenez appuyé 2 secondes pour activer</p>
 
       <div id="sos-activated" class="sos-activated hidden">
         <div class="sos-alert-badge">🚨 SOS ACTIVÉ</div>
@@ -201,7 +201,7 @@
 
     <div class="magasin-screen">
       <div class="search-bar">
-        <input type="text" id="productSearch" placeholder="Rechercher un produit (ex: lait, pain...)" oninput="searchProduct(this.value)"/>
+        <input type="text" id="productSearch" placeholder="Rechercher un produit (ex: lait, pain...)" onkeydown="if(event.key==='Enter') searchProduct(this.value)"/>
         <button onclick="searchProduct(document.getElementById('productSearch').value)">🔍</button>
       </div>
 
@@ -406,8 +406,6 @@
               <rect x="330" y="230" width="130" height="50" rx="3" fill="#AED581"/>
               <text x="395" y="260" text-anchor="middle" font-size="10" font-weight="700" fill="#33691E">LÉGUMES</text>
             </g>
-            <!-- ET (séparateur) -->
-            <text x="395" y="298" text-anchor="middle" font-size="9" font-weight="700" fill="#888">ET</text>
             <!-- Fruits -->
             <g class="map-rayon" data-rayon="fruits" onclick="highlightRayonSVG('fruits')">
               <rect x="330" y="306" width="130" height="50" rx="3" fill="#FFB74D"/>
