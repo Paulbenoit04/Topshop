@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TOPSHOP — Votre Compagnon Shopping</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="screen active" id="screen-home">
+    <header class="app-header">
+      <div class="logo">TOPSHOP</div>
+      <p class="tagline">Votre Compagnon de Sécurité Shopping</p>
+    </header>
+    <button class="sos-banner" onclick="showScreen('screen-sos')">
+      <span class="sos-icon">⚠</span>
+      <div><strong>SOS</strong><span>Aide d'Urgence</span></div>
+      <span class="sos-arrow">›</span>
+    </button>
+    <section class="features-grid">
+      <h2 class="section-title">Fonctionnalités Principales</h2>
+      <div class="feature-card" onclick="showScreen('screen-parking')">
+        <div class="feature-icon parking-icon">🗺</div>
+        <div class="feature-text"><strong>Carte de Sécurité du Parking</strong><span>Trouvez un parking sûr et enregistrez l'emplacement</span></div>
+        <span class="card-arrow">›</span>
+      </div>
+      <div class="feature-card" onclick="showScreen('screen-magasin')">
+        <div class="feature-icon nav-icon">🧭</div>
+        <div class="feature-text"><strong>Navigation en Magasin</strong><span>Naviguez efficacement dans les rayons</span></div>
+        <span class="card-arrow">›</span>
+      </div>
+      <div class="feature-card" onclick="showScreen('screen-liste')">
+        <div class="feature-icon list-icon">🛒</div>
+        <div class="feature-text"><strong>Liste de Courses</strong><span>Organisez votre trajet de courses</span></div>
+        <span class="card-arrow">›</span>
+      </div>
+    </section>
+    <div class="home-footer"><p>Intermarché · Votre magasin proche de vous</p></div>
+  </div>
+
+  <div class="screen" id="screen-sos">
+    <header class="screen-header sos-header">
+      <button class="back-btn" onclick="showScreen('screen-home')">‹ Retour</button>
+      <h1>SOS d'Urgence</h1>
+    </header>
+    <div class="sos-screen">
+      <div class="sos-big-btn" id="sosBigBtn">
+        <div class="sos-ring"></div>
+        <div class="sos-ring sos-ring-2"></div>
+        <div class="sos-center"><span class="sos-exclamation">!</span><span class="sos-label">SOS</span></div>
+        <svg class="sos-progress" viewBox="0 0 120 120">
+          <circle class="sos-progress-track" cx="60" cy="60" r="54"/>
+          <circle class="sos-progress-fill" id="sosProgressFill" cx="60" cy="60" r="54"/>
+        </svg>
+      </div>
+      <p class="sos-hint">Maintenez appuyé 2 secondes pour activer</p>
+      <div id="sos-activated" class="sos-activated hidden">
+        <div class="sos-alert-badge">🚨 SOS ACTIVÉ</div>
+        <p>Les secours ont été alertés.<br>Votre position a été partagée.</p>
+        <button class="btn-cancel" onclick="cancelSOS()">Annuler l'alerte</button>
+      </div>
+      <div class="sos-options">
+        <p class="sos-options-title">Que se passe-t-il lorsque vous appuyez sur SOS ?</p>
+        <div class="sos-option">
+          <div class="sos-option-icon blue-dot">🛡</div>
+          <div><strong>Contacter la sécurité du magasin</strong><span>Si disponible dans le magasin</span></div>
+        </div>
+        <div class="sos-option">
+          <div class="sos-option-icon red-dot">📞</div>
+          <div><strong>Appeler les forces de l'ordre</strong><span>Si la sécurité du magasin n'est pas disponible</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen" id="screen-parking">
+    <header class="screen-header blue-header">
+      <button class="back-btn" onclick="showScreen('screen-home')">‹ Retour</button>
+      <h1>Carte de Sécurité du Parking</h1>
+    </header>
+    <div class="parking-screen">
+      <div class="parking-map" id="parkingMap">
+        <div class="parking-legend">
+          <span><span class="dot blue"></span> Votre voiture</span>
+          <span><span class="dot yellow"></span> Bien éclairé</span>
+          <span><span class="dot green"></span> Entrée</span>
+          <span><span class="dot red"></span> Zone sombre</span>
+        </div>
+        <div class="parking-grid">
+          <div class="parking-row">
+            <div class="pspot lit" data-spot="A1">A1</div>
+            <div class="pspot lit" data-spot="A2">A2</div>
+            <div class="pspot dark" data-spot="A3">A3</div>
+            <div class="pspot dark" data-spot="A4">A4</div>
+            <div class="pspot lit" data-spot="A5">A5</div>
+          </div>
+          <div class="parking-aisle">← Allée principale →</div>
+          <div class="parking-row">
+            <div class="pspot lit" data-spot="B1">B1</div>
+            <div class="pspot lit" data-spot="B2" id="myCarSpot">B2 🚗</div>
+            <div class="pspot lit" data-spot="B3">B3</div>
+            <div class="pspot dark" data-spot="B4">B4</div>
+            <div class="pspot dark" data-spot="B5">B5</div>
+          </div>
+          <div class="parking-aisle"></div>
+          <div class="parking-row">
+            <div class="pspot dark" data-spot="C1">C1</div>
+            <div class="pspot lit" data-spot="C2">C2</div>
+            <div class="pspot lit" data-spot="C3">C3</div>
+            <div class="pspot lit" data-spot="C4">C4</div>
+            <div class="pspot dark" data-spot="C5">C5</div>
+          </div>
+          <div class="parking-entry">🟢 ENTRÉE / SORTIE</div>
+        </div>
+        <div class="parking-alert" id="parkingAlert" style="display:none">
+          ⚠ Zone peu éclairée sélectionnée — Préférez une zone jaune
+        </div>
+      </div>
+      <button class="btn-primary" id="saveSpotBtn" onclick="saveSpot()">📍 Enregistrer l'Emplacement Actuel</button>
+      <div class="saved-spot-info" id="savedSpotInfo" style="display:none">
+        <span>✅ Place enregistrée : <strong id="savedSpotLabel"></strong></span>
+        <button onclick="clearSpot()">Effacer</button>
+      </div>
+      <div class="parking-tips">
+        <p class="tips-title">💡 Conseils de Sécurité</p>
+        <ul>
+          <li>Garez-vous dans des zones bien éclairées</li>
+          <li>Restez conscient de votre environnement</li>
+          <li>Enregistrez l'emplacement pour un retour facile</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen" id="screen-magasin">
+    <header class="screen-header green-header">
+      <button class="back-btn" onclick="showScreen('screen-home')">‹ Retour</button>
+      <h1>Navigation en Magasin</h1>
+    </header>
+    <div class="magasin-screen">
+      <div class="search-bar">
+        <input type="text" id="productSearch" placeholder="Rechercher un produit (ex: lait, pain...)" onkeydown="if(event.key==='Enter') searchProduct(this.value)"/>
+        <button onclick="searchProduct(document.getElementById('productSearch').value)">🔍</button>
+      </div>
+      <div class="search-result" id="searchResult" style="display:none"></div>
+      <div class="map-hint">👆 Pincez pour zoomer · Glissez pour naviguer</div>
+      <div class="map-viewport" id="mapViewport">
+        <div class="map-inner" id="mapInner">
+          <svg id="storeSVG" viewBox="0 0 620 780" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+            <rect width="620" height="780" fill="#F7F6F3" rx="4"/>
+            <g class="map-rayon" data-rayon="epicerie-seche" onclick="highlightRayonSVG('epicerie-seche')"><rect x="8" y="130" width="90" height="28" rx="3" fill="#C8E6C9"/><text x="53" y="148" text-anchor="middle" font-size="7" font-weight="600" fill="#1B5E20">SUCRE · FARINE</text></g>
+            <g class="map-rayon" data-rayon="gateaux" onclick="highlightRayonSVG('gateaux')"><rect x="8" y="162" width="90" height="22" rx="3" fill="#FFE082"/><text x="53" y="177" text-anchor="middle" font-size="7" font-weight="600" fill="#5D4037">GÂTEAUX</text></g>
+            <g class="map-rayon" data-rayon="confiserie" onclick="highlightRayonSVG('confiserie')"><rect x="8" y="188" width="90" height="22" rx="3" fill="#F48FB1"/><text x="53" y="200" text-anchor="middle" font-size="6.5" font-weight="600" fill="#880E4F">CONFISERIE · CHOCO</text><text x="53" y="208" text-anchor="middle" font-size="6" fill="#880E4F">Bonbons · Pâtiss.</text></g>
+            <g class="map-rayon" data-rayon="compotes" onclick="highlightRayonSVG('compotes')"><rect x="8" y="214" width="90" height="22" rx="3" fill="#FFCC80"/><text x="53" y="226" text-anchor="middle" font-size="6.5" font-weight="600" fill="#E65100">COMPOTES · CONFIT.</text><text x="53" y="233" text-anchor="middle" font-size="6" fill="#E65100">Pâte à tartiner</text></g>
+            <g class="map-rayon" data-rayon="cereales" onclick="highlightRayonSVG('cereales')"><rect x="8" y="240" width="90" height="22" rx="3" fill="#A5D6A7"/><text x="53" y="255" text-anchor="middle" font-size="7" font-weight="600" fill="#1B5E20">CÉRÉALES</text></g>
+            <g class="map-rayon" data-rayon="cafe" onclick="highlightRayonSVG('cafe')"><rect x="8" y="266" width="90" height="22" rx="3" fill="#BCAAA4"/><text x="53" y="281" text-anchor="middle" font-size="7" font-weight="600" fill="#3E2723">CAFÉ · THÉ</text></g>
+            <g class="map-rayon" data-rayon="nutrition" onclick="highlightRayonSVG('nutrition')"><rect x="8" y="292" width="90" height="22" rx="3" fill="#B2DFDB"/><text x="53" y="307" text-anchor="middle" font-size="7" font-weight="600" fill="#004D40">NUTRITION · BIEN-ÊTRE</text></g>
+            <g class="map-rayon" data-rayon="riz-farine" onclick="highlightRayonSVG('riz-farine')"><rect x="8" y="318" width="90" height="22" rx="3" fill="#FFF59D"/><text x="53" y="333" text-anchor="middle" font-size="7" font-weight="600" fill="#F57F17">RIZ · FARINE</text></g>
+            <g class="map-rayon" data-rayon="conserves" onclick="highlightRayonSVG('conserves')"><rect x="8" y="344" width="90" height="36" rx="3" fill="#EF9A9A"/><text x="53" y="360" text-anchor="middle" font-size="7" font-weight="600" fill="#B71C1C">CONSERVES</text><text x="53" y="372" text-anchor="middle" font-size="6" fill="#B71C1C">Mayo · Ketchup · Épices</text></g>
+            <g class="map-rayon" data-rayon="monde" onclick="highlightRayonSVG('monde')"><rect x="8" y="384" width="90" height="22" rx="3" fill="#CE93D8"/><text x="53" y="399" text-anchor="middle" font-size="7" font-weight="600" fill="#4A148C">PRODUITS DU MONDE</text></g>
+            <g class="map-rayon" data-rayon="apero" onclick="highlightRayonSVG('apero')"><rect x="8" y="410" width="90" height="22" rx="3" fill="#FFAB91"/><text x="53" y="425" text-anchor="middle" font-size="7" font-weight="600" fill="#BF360C">CHIPS · APÉRO</text></g>
+            <g class="map-rayon" data-rayon="pates" onclick="highlightRayonSVG('pates')"><rect x="8" y="436" width="90" height="22" rx="3" fill="#FFF176"/><text x="53" y="451" text-anchor="middle" font-size="7" font-weight="600" fill="#F57F17">PÂTES</text></g>
+            <g class="map-rayon" data-rayon="alcools" onclick="highlightRayonSVG('alcools')"><rect x="8" y="462" width="90" height="22" rx="3" fill="#90CAF9"/><text x="53" y="477" text-anchor="middle" font-size="7" font-weight="600" fill="#0D47A1">ALCOOLS · BIÈRES</text></g>
+            <g class="map-rayon" data-rayon="boissons" onclick="highlightRayonSVG('boissons')"><rect x="8" y="488" width="90" height="22" rx="3" fill="#80DEEA"/><text x="53" y="503" text-anchor="middle" font-size="7" font-weight="600" fill="#006064">SODAS · JUS</text></g>
+            <g class="map-rayon" data-rayon="menage" onclick="highlightRayonSVG('menage')"><rect x="8" y="514" width="90" height="22" rx="3" fill="#B0BEC5"/><text x="53" y="529" text-anchor="middle" font-size="7" font-weight="600" fill="#263238">PRODUITS MÉNAGERS</text></g>
+            <g class="map-rayon" data-rayon="lessive" onclick="highlightRayonSVG('lessive')"><rect x="8" y="540" width="90" height="22" rx="3" fill="#A5D6A7"/><text x="53" y="555" text-anchor="middle" font-size="7" font-weight="600" fill="#1B5E20">LESSIVE</text></g>
+            <g class="map-rayon" data-rayon="animaux" onclick="highlightRayonSVG('animaux')"><rect x="8" y="566" width="90" height="22" rx="3" fill="#BCAAA4"/><text x="53" y="581" text-anchor="middle" font-size="7" font-weight="600" fill="#3E2723">CHIENS · CHATS</text></g>
+            <g class="map-rayon" data-rayon="promo" onclick="highlightRayonSVG('promo')"><rect x="108" y="162" width="34" height="160" rx="3" fill="#FFD54F"/><text x="125" y="290" text-anchor="middle" font-size="7" font-weight="700" fill="#E65100" transform="rotate(-90,125,290)">ZONE PROMO</text></g>
+            <g class="map-rayon" data-rayon="volailles" onclick="highlightRayonSVG('volailles')"><rect x="148" y="162" width="28" height="160" rx="3" fill="#FFAB91"/><text x="162" y="280" text-anchor="middle" font-size="6.5" font-weight="600" fill="#BF360C" transform="rotate(-90,162,280)">VOLAILLES LIBRE SERVICE</text></g>
+            <g class="map-rayon" data-rayon="charcuterie" onclick="highlightRayonSVG('charcuterie')"><rect x="182" y="162" width="28" height="160" rx="3" fill="#F48FB1"/><text x="196" y="280" text-anchor="middle" font-size="6.5" font-weight="600" fill="#880E4F" transform="rotate(-90,196,280)">CHARCUTERIE LIBRE SERVICE</text></g>
+            <g class="map-rayon" data-rayon="fromage" onclick="highlightRayonSVG('fromage')"><rect x="216" y="162" width="28" height="160" rx="3" fill="#FFE082"/><text x="230" y="280" text-anchor="middle" font-size="6.5" font-weight="600" fill="#5D4037" transform="rotate(-90,230,280)">FROMAGE LIBRE SERVICE</text></g>
+            <g class="map-rayon" data-rayon="cremerie" onclick="highlightRayonSVG('cremerie')"><rect x="250" y="162" width="28" height="160" rx="3" fill="#E1F5FE"/><text x="264" y="280" text-anchor="middle" font-size="6.5" font-weight="600" fill="#01579B" transform="rotate(-90,264,280)">CRÉMERIE · BEURRE</text></g>
+            <g class="map-rayon" data-rayon="traiteur" onclick="highlightRayonSVG('traiteur')"><rect x="282" y="155" width="38" height="180" rx="19" fill="#CE93D8"/><text x="301" y="258" text-anchor="middle" font-size="6" font-weight="700" fill="#4A148C" transform="rotate(-90,301,258)">FROMAGERIE · CHARCUTERIE · TRAITEUR</text></g>
+            <g class="map-rayon" data-rayon="promo-bas" onclick="highlightRayonSVG('promo')"><rect x="108" y="460" width="34" height="130" rx="3" fill="#FFD54F"/><text x="125" y="565" text-anchor="middle" font-size="7" font-weight="700" fill="#E65100" transform="rotate(-90,125,565)">ZONE PROMO</text></g>
+            <g class="map-rayon" data-rayon="chocolats" onclick="highlightRayonSVG('chocolats')"><rect x="108" y="594" width="34" height="26" rx="3" fill="#A5D6A7"/><text x="125" y="610" text-anchor="middle" font-size="6.5" font-weight="600" fill="#1B5E20">CHOCOLATS</text></g>
+            <g class="map-rayon" data-rayon="traiteur-ls" onclick="highlightRayonSVG('traiteur')"><rect x="148" y="460" width="28" height="160" rx="3" fill="#FFCCBC"/><text x="162" y="580" text-anchor="middle" font-size="6" font-weight="600" fill="#BF360C" transform="rotate(-90,162,580)">TRAITEUR LIBRE SERVICE</text></g>
+            <g class="map-rayon" data-rayon="yaourts" onclick="highlightRayonSVG('yaourts')"><rect x="182" y="460" width="28" height="160" rx="3" fill="#E1F5FE"/><text x="196" y="575" text-anchor="middle" font-size="6" font-weight="600" fill="#01579B" transform="rotate(-90,196,575)">YAOURTS · PROD. LAITIERS</text></g>
+            <g class="map-rayon" data-rayon="bio-frais" onclick="highlightRayonSVG('bio-frais')"><rect x="216" y="460" width="28" height="160" rx="3" fill="#C8E6C9"/><text x="230" y="575" text-anchor="middle" font-size="6" font-weight="600" fill="#1B5E20" transform="rotate(-90,230,575)">COMPOTE · JUS FRAIS · YAOURT BIO</text></g>
+            <g class="map-rayon" data-rayon="boucherie" onclick="highlightRayonSVG('boucherie')"><rect x="330" y="8" width="90" height="30" rx="3" fill="#EF9A9A"/><text x="375" y="27" text-anchor="middle" font-size="8" font-weight="700" fill="#B71C1C">BOUCHERIE</text></g>
+            <g class="map-rayon" data-rayon="lait-oeufs" onclick="highlightRayonSVG('lait-oeufs')"><rect x="8" y="80" width="90" height="28" rx="3" fill="#FFF9C4"/><text x="53" y="92" text-anchor="middle" font-size="6" font-weight="600" fill="#F57F17">LAIT · LAIT CONCENTRÉ</text><text x="53" y="101" text-anchor="middle" font-size="6" fill="#F57F17">LAIT ALTERNATIF</text></g>
+            <g class="map-rayon" data-rayon="cremerie-haut" onclick="highlightRayonSVG('cremerie')"><rect x="210" y="80" width="40" height="28" rx="3" fill="#E1F5FE"/><text x="230" y="96" text-anchor="middle" font-size="7" font-weight="600" fill="#01579B">CRÈME LIQ.</text></g>
+            <g class="map-rayon" data-rayon="oeufs-haut" onclick="highlightRayonSVG('lait-oeufs')"><rect x="256" y="80" width="40" height="28" rx="3" fill="#FFF59D"/><text x="276" y="96" text-anchor="middle" font-size="7" font-weight="600" fill="#F57F17">ŒUFS</text></g>
+            <g class="map-rayon" data-rayon="bio" onclick="highlightRayonSVG('bio')"><rect x="330" y="170" width="60" height="36" rx="3" fill="#DCEDC8"/><text x="360" y="191" text-anchor="middle" font-size="7" font-weight="700" fill="#33691E">BIO VRAC</text></g>
+            <g class="map-rayon" data-rayon="fraiche-decoupe" onclick="highlightRayonSVG('fraiche-decoupe')"><rect x="400" y="170" width="60" height="36" rx="3" fill="#FFCDD2"/><text x="430" y="186" text-anchor="middle" font-size="6.5" font-weight="600" fill="#B71C1C">FRAÎCHE</text><text x="430" y="197" text-anchor="middle" font-size="6.5" font-weight="600" fill="#B71C1C">DÉCOUPE</text></g>
+            <g class="map-rayon" data-rayon="legumes" onclick="highlightRayonSVG('legumes')"><rect x="330" y="230" width="130" height="50" rx="3" fill="#AED581"/><text x="395" y="260" text-anchor="middle" font-size="10" font-weight="700" fill="#33691E">LÉGUMES</text></g>
+            <g class="map-rayon" data-rayon="fruits" onclick="highlightRayonSVG('fruits')"><rect x="330" y="306" width="130" height="50" rx="3" fill="#FFB74D"/><text x="395" y="336" text-anchor="middle" font-size="10" font-weight="700" fill="#E65100">FRUITS</text></g>
+            <g class="map-rayon" data-rayon="fruits-secs" onclick="highlightRayonSVG('fruits-secs')"><rect x="330" y="460" width="130" height="30" rx="3" fill="#D7CCC8"/><text x="395" y="479" text-anchor="middle" font-size="7" font-weight="600" fill="#3E2723">FRUITS SECS</text></g>
+            <g class="map-rayon" data-rayon="local" onclick="highlightRayonSVG('local')"><rect x="330" y="530" width="130" height="90" rx="3" fill="#DCEDC8"/><text x="395" y="575" text-anchor="middle" font-size="7" font-weight="700" fill="#33691E">PRODUITS LOCAUX · BIO</text></g>
+            <g class="map-rayon" data-rayon="surgeles" onclick="highlightRayonSVG('surgeles')"><rect x="248" y="460" width="28" height="160" rx="3" fill="#B3E5FC"/><text x="262" y="573" text-anchor="middle" font-size="6.5" font-weight="600" fill="#01579B" transform="rotate(-90,262,573)">SURGELÉS</text></g>
+            <g class="map-rayon" data-rayon="surgeles2" onclick="highlightRayonSVG('surgeles')"><rect x="282" y="460" width="28" height="160" rx="3" fill="#B3E5FC"/><text x="296" y="573" text-anchor="middle" font-size="6.5" font-weight="600" fill="#01579B" transform="rotate(-90,296,573)">SURGELÉS</text></g>
+            <g class="map-rayon" data-rayon="vins" onclick="highlightRayonSVG('vins')"><rect x="524" y="80" width="90" height="22" rx="3" fill="#CE93D8"/><text x="569" y="95" text-anchor="middle" font-size="7" font-weight="600" fill="#4A148C">VINS · CHAMPAGNE</text></g>
+            <g class="map-rayon" data-rayon="vins2" onclick="highlightRayonSVG('vins')"><rect x="524" y="106" width="90" height="22" rx="3" fill="#CE93D8"/><text x="569" y="121" text-anchor="middle" font-size="7" font-weight="600" fill="#4A148C">VINS · CHAMPAGNE</text></g>
+            <g class="map-rayon" data-rayon="maison" onclick="highlightRayonSVG('maison')"><rect x="524" y="165" width="90" height="22" rx="3" fill="#B0BEC5"/><text x="569" y="180" text-anchor="middle" font-size="7" font-weight="600" fill="#263238">MAISON · VAISSELLE</text></g>
+            <g class="map-rayon" data-rayon="bricolage" onclick="highlightRayonSVG('bricolage')"><rect x="524" y="210" width="90" height="22" rx="3" fill="#90CAF9"/><text x="569" y="225" text-anchor="middle" font-size="7" font-weight="600" fill="#0D47A1">PILES · BRICOLAGE</text></g>
+            <g class="map-rayon" data-rayon="hygiene" onclick="highlightRayonSVG('hygiene')"><rect x="524" y="252" width="90" height="22" rx="3" fill="#F48FB1"/><text x="569" y="267" text-anchor="middle" font-size="7" font-weight="600" fill="#880E4F">HYGIÈNE BEAUTÉ</text></g>
+            <g class="map-rayon" data-rayon="hygiene2" onclick="highlightRayonSVG('hygiene')"><rect x="524" y="278" width="90" height="22" rx="3" fill="#F48FB1"/><text x="569" y="293" text-anchor="middle" font-size="7" font-weight="600" fill="#880E4F">HYGIÈNE BEAUTÉ</text></g>
+            <g class="map-rayon" data-rayon="jouets" onclick="highlightRayonSVG('jouets')"><rect x="524" y="320" width="90" height="22" rx="3" fill="#FFF176"/><text x="569" y="335" text-anchor="middle" font-size="7" font-weight="600" fill="#F57F17">JOUETS</text></g>
+            <g class="map-rayon" data-rayon="linge" onclick="highlightRayonSVG('linge')"><rect x="524" y="346" width="90" height="22" rx="3" fill="#DCEDC8"/><text x="569" y="361" text-anchor="middle" font-size="7" font-weight="600" fill="#33691E">LINGE DE MAISON</text></g>
+            <g class="map-rayon" data-rayon="textile" onclick="highlightRayonSVG('textile')"><rect x="524" y="372" width="90" height="22" rx="3" fill="#E1BEE7"/><text x="569" y="387" text-anchor="middle" font-size="7" font-weight="600" fill="#4A148C">TEXTILE</text></g>
+            <g class="map-rayon" data-rayon="textile2" onclick="highlightRayonSVG('textile')"><rect x="524" y="398" width="90" height="22" rx="3" fill="#E1BEE7"/><text x="569" y="413" text-anchor="middle" font-size="6.5" font-weight="600" fill="#4A148C">TEXTILE</text></g>
+            <g class="map-rayon" data-rayon="bebe" onclick="highlightRayonSVG('bebe')"><rect x="524" y="424" width="90" height="22" rx="3" fill="#FFCCBC"/><text x="569" y="439" text-anchor="middle" font-size="7" font-weight="600" fill="#BF360C">ALIMENTATION BÉBÉ</text></g>
+            <g class="map-rayon" data-rayon="librairie" onclick="highlightRayonSVG('librairie')"><rect x="524" y="476" width="90" height="22" rx="3" fill="#212121"/><text x="569" y="491" text-anchor="middle" font-size="6.5" font-weight="600" fill="#FFFFFF">LIBRAIRIE · INFORMATIQUE</text></g>
+            <g class="map-rayon" data-rayon="papeterie" onclick="highlightRayonSVG('papeterie')"><rect x="524" y="502" width="90" height="22" rx="3" fill="#9E9E9E"/><text x="569" y="517" text-anchor="middle" font-size="7" font-weight="600" fill="#212121">PAPETERIE</text></g>
+            <g class="map-rayon" data-rayon="viennoiserie" onclick="highlightRayonSVG('viennoiserie')"><rect x="524" y="554" width="90" height="22" rx="3" fill="#FFCC80"/><text x="569" y="569" text-anchor="middle" font-size="7" font-weight="600" fill="#E65100">BRIOCHE · GÂTEAUX</text></g>
+            <g class="map-rayon" data-rayon="pain-mie" onclick="highlightRayonSVG('pain-mie')"><rect x="524" y="580" width="90" height="22" rx="3" fill="#FFE082"/><text x="569" y="595" text-anchor="middle" font-size="7" font-weight="600" fill="#5D4037">PAIN DE MIE</text></g>
+            <g class="map-rayon" data-rayon="boulangerie" onclick="highlightRayonSVG('boulangerie')"><rect x="524" y="606" width="90" height="30" rx="3" fill="#D7CCC8"/><text x="569" y="619" text-anchor="middle" font-size="6.5" font-weight="600" fill="#3E2723">BOULANGERIE</text><text x="569" y="629" text-anchor="middle" font-size="6" fill="#3E2723">LIBRE SERVICE</text></g>
+            <g class="map-rayon" data-rayon="caisses" onclick="highlightRayonSVG('caisses')"><rect x="8" y="650" width="440" height="40" rx="4" fill="#8D6E63"/><text x="228" y="675" text-anchor="middle" font-size="14" font-weight="700" fill="#FFFFFF">CAISSES</text></g>
+            <g><rect x="524" y="690" width="90" height="50" rx="4" fill="#6D4C41"/><text x="569" y="715" text-anchor="middle" font-size="9" font-weight="700" fill="#FFF">ACCUEIL</text></g>
+            <text x="485" y="718" text-anchor="middle" font-size="9" font-weight="700" fill="#E53935">▲</text>
+            <text x="485" y="732" text-anchor="middle" font-size="8" font-weight="700" fill="#E53935">ENTRÉE</text>
+            <circle id="productDot" cx="0" cy="0" r="10" fill="#E53935" opacity="0" stroke="white" stroke-width="2">
+              <animate attributeName="r" values="8;13;8" dur="1s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="1;0.7;1" dur="1s" repeatCount="indefinite"/>
+            </circle>
+          </svg>
+        </div>
+      </div>
+      <div class="search-result-detail" id="searchResultDetail" style="display:none">
+        <span id="searchResultIcon">📍</span>
+        <div><strong id="searchResultLabel"></strong><span id="searchResultSub"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ÉCRAN 4 — LISTE DE COURSES -->
+  <div class="screen" id="screen-liste">
+    <header class="screen-header purple-header">
+      <button class="back-btn" onclick="showScreen('screen-home')">‹ Retour</button>
+      <h1>Liste de Courses</h1>
+    </header>
+    <div class="liste-screen">
+      <div class="add-item-bar">
+        <div class="item-row">
+          <input type="text" id="newItem" placeholder="Ajouter un produit..." onkeydown="if(event.key==='Enter') addItem()"/>
+          <button onclick="addItem()">+</button>
+        </div>
+        <select id="newItemRayon"></select>
+      </div>
+      <div class="liste-stats" id="listeStats"></div>
+      <ul class="shopping-list" id="shoppingList"></ul>
+      <div class="liste-empty" id="listeEmpty">
+        <span>🛒</span>
+        <p>Votre liste est vide.<br>Ajoutez des produits ci-dessus !</p>
+      </div>
+      <div class="liste-actions" id="listeActions" style="display:none">
+        <button class="btn-secondary" onclick="clearChecked()">Supprimer les cochés</button>
+        <button class="btn-secondary danger" onclick="clearAll()">Tout effacer</button>
+      </div>
+      <div class="recettes-section">
+        <div class="recettes-header">
+          <p class="recettes-title">💡 Recettes suggérées</p>
+        </div>
+        <div class="recettes-grid">
+          <div class="recette-card" onclick="addRecipe('carbonara')"><span>🍝</span><span>Carbonara</span></div>
+          <div class="recette-card" onclick="addRecipe('salade')"><span>🥗</span><span>Salade César</span></div>
+          <div class="recette-card" onclick="addRecipe('omelette')"><span>🍳</span><span>Omelette</span></div>
+          <div class="recette-card" onclick="addRecipe('smoothie')"><span>🥤</span><span>Smoothie</span></div>
+        </div>
+      </div>
+      <div class="custom-recipes-section">
+        <div class="recettes-header">
+          <p class="recettes-title">📋 Mes recettes</p>
+          <button class="btn-create-recipe" onclick="openCreateRecipe()">+ Créer une recette</button>
+        </div>
+        <div id="customRecipesList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL — Créer une recette -->
+  <div class="modal-overlay" id="createRecipeModal">
+    <div class="modal-sheet">
+      <div class="modal-handle"></div>
+      <p class="modal-title">✨ Créer une recette</p>
+      <div class="modal-field">
+        <input type="text" id="recipeEmoji" class="emoji-input" placeholder="📋" maxlength="2"/>
+        <input type="text" id="recipeName" placeholder="Nom de la recette (ex: Quiche lorraine)"/>
+      </div>
+      <span class="ingredients-label">Ingrédients</span>
+      <div id="recipeIngredientsList"></div>
+      <button class="btn-add-ingredient" onclick="addRecipeIngredientRow()">+ Ajouter un ingrédient</button>
+      <div class="modal-actions">
+        <button class="btn-cancel-modal" onclick="closeCreateRecipe()">Annuler</button>
+        <button class="btn-save-recipe" onclick="saveCustomRecipe()">💾 Enregistrer</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

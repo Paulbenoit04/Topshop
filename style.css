@@ -530,3 +530,59 @@ body {
 .recette-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-strong); }
 .recette-card span:first-child { font-size: 22px; }
 .recette-card span:last-child  { font-size: 10px; font-weight: 600; color: var(--gris); }
+/* ═══════════════════════════════════════════
+   NOUVEAUX STYLES — Liste de courses
+═══════════════════════════════════════════ */
+
+.add-item-bar { display: flex; flex-direction: column; gap: 8px; }
+.add-item-bar .item-row { display: flex; gap: 8px; }
+.add-item-bar input[type="text"] { flex: 1; padding: 10px 14px; border: 1.5px solid #e0e0e0; border-radius: 10px; font-size: 15px; font-family: inherit; outline: none; transition: border-color .2s; }
+.add-item-bar input[type="text"]:focus { border-color: #7C3AED; }
+.add-item-bar select { width: 100%; padding: 9px 12px; border: 1.5px solid #e0e0e0; border-radius: 10px; font-size: 13px; font-family: inherit; background: #fff; color: #555; outline: none; cursor: pointer; }
+.add-item-bar select:focus { border-color: #7C3AED; }
+.add-item-bar button { padding: 10px 18px; background: #7C3AED; color: #fff; border: none; border-radius: 10px; font-size: 20px; font-weight: 700; cursor: pointer; align-self: flex-start; }
+.add-item-bar button:hover { background: #5B21B6; }
+
+.rayon-header { list-style: none; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #9CA3AF; padding: 14px 4px 4px; border-bottom: 1px solid #F3F4F6; margin-bottom: 2px; }
+.item-info { display: flex; flex-direction: column; flex: 1; gap: 2px; }
+.item-name { font-size: 15px; color: #1F2937; }
+.item-rayon { font-size: 11px; color: #9CA3AF; }
+
+.liste-stats { display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; font-size: 13px; color: #6B7280; }
+.stats-bar { height: 6px; background: #E5E7EB; border-radius: 99px; overflow: hidden; }
+.stats-fill { height: 100%; background: linear-gradient(90deg, #7C3AED, #A78BFA); border-radius: 99px; transition: width .4s ease; }
+
+.recettes-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.recettes-title { font-size: 14px; font-weight: 700; color: #374151; margin: 0; }
+
+.btn-create-recipe { background: #7C3AED; color: #fff; border: none; border-radius: 20px; padding: 6px 14px; font-size: 12px; font-weight: 600; cursor: pointer; }
+.btn-create-recipe:hover { background: #5B21B6; }
+
+.custom-recipes-section { margin-top: 14px; }
+.custom-recipe-card { display: flex; align-items: center; gap: 8px; background: #F5F3FF; border: 1.5px solid #DDD6FE; }
+.btn-use-recipe { margin-left: auto; background: #7C3AED; color: #fff; border: none; border-radius: 8px; padding: 4px 10px; font-size: 11px; font-weight: 600; cursor: pointer; }
+.btn-use-recipe:hover { background: #5B21B6; }
+.btn-del-recipe { background: none; border: none; color: #EF4444; font-size: 14px; cursor: pointer; padding: 2px 4px; }
+.no-recipes { font-size: 13px; color: #9CA3AF; text-align: center; padding: 10px 0; margin: 0; }
+
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 1000; display: none; align-items: flex-end; justify-content: center; }
+.modal-overlay.open { display: flex; }
+.modal-sheet { background: #fff; border-radius: 20px 20px 0 0; width: 100%; max-width: 480px; padding: 24px 20px 32px; max-height: 88vh; overflow-y: auto; animation: slideUp .25s ease; }
+@keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.modal-handle { width: 40px; height: 4px; background: #E5E7EB; border-radius: 99px; margin: 0 auto 18px; }
+.modal-title { font-size: 17px; font-weight: 700; color: #1F2937; margin: 0 0 16px; }
+.modal-field { display: flex; gap: 10px; margin-bottom: 12px; }
+.modal-field input, .modal-field select { flex: 1; padding: 10px 12px; border: 1.5px solid #e0e0e0; border-radius: 10px; font-size: 14px; font-family: inherit; outline: none; }
+.modal-field input:focus, .modal-field select:focus { border-color: #7C3AED; }
+.emoji-input { width: 60px !important; flex: none !important; text-align: center; font-size: 20px !important; }
+.ingredients-label { font-size: 13px; font-weight: 600; color: #6B7280; margin-bottom: 8px; display: block; }
+.recipe-ingredient-row { display: flex; gap: 8px; margin-bottom: 8px; align-items: center; }
+.recipe-ingredient-row .ri-name { flex: 1; padding: 8px 10px; border: 1.5px solid #e0e0e0; border-radius: 8px; font-size: 13px; font-family: inherit; outline: none; }
+.recipe-ingredient-row .ri-rayon { flex: 1.2; padding: 8px 10px; border: 1.5px solid #e0e0e0; border-radius: 8px; font-size: 12px; font-family: inherit; background: #fff; outline: none; }
+.recipe-ingredient-row button { background: none; border: none; color: #EF4444; font-size: 16px; cursor: pointer; padding: 4px; }
+.btn-add-ingredient { width: 100%; padding: 9px; border: 1.5px dashed #DDD6FE; border-radius: 10px; background: #FAFAFA; color: #7C3AED; font-size: 13px; font-weight: 600; cursor: pointer; margin: 6px 0 16px; }
+.btn-add-ingredient:hover { background: #F5F3FF; }
+.modal-actions { display: flex; gap: 10px; }
+.btn-save-recipe { flex: 1; padding: 12px; background: #7C3AED; color: #fff; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; }
+.btn-save-recipe:hover { background: #5B21B6; }
+.btn-cancel-modal { padding: 12px 18px; background: #F3F4F6; color: #374151; border: none; border-radius: 12px; font-size: 14px; cursor: pointer; }
